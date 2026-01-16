@@ -32,14 +32,17 @@ latest = df.iloc[-1]
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric("VIX (Volatility)", f"{latest_vix:.2f}")
+    st.metric("VIX (Volatility)", f"{latest['vix']:.2f}")
 
 with col2:
-    st.metric("Unemployment Rate", f"{latest_unemployment:.1f}")
+    st.metric("Unemployment Rate", f"{latest['unemployment']:.1f}")
 
 with col3:
-    st.metric("Predicted Market Direction", "UP 📈" if latest_probability > 0.5 else "DOWN 📉")
-
+    st.metric(
+        "Predicted Market Direction",
+        "UP 📈" if latest["predicted_prob_up"] > 0.5 else "DOWN 📉"
+    )
+    
 st.subheader("📈 Model Confidence")
 
 st.progress(float(latest["predicted_prob_up"]))

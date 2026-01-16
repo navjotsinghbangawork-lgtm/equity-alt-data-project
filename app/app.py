@@ -2,9 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# -----------------------------
-# Load data
-# -----------------------------
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("data/model_output.csv")
@@ -12,9 +10,10 @@ def load_data():
 
 df = load_data()
 
-# ---------------------------
-# Page title
-# ---------------------------
+st.set_page_config(
+    page_title="Macro Indicators & Market Direction",
+    layout="wide"
+)
 
 st.title("📊 Macro Indicators & Market Direction Dashboard")
 
@@ -27,24 +26,19 @@ The predictions are generated using a logistic regression model trained
 on historical data.
 """)
 
-# ---------------------------
-# Latest metrics
-# ---------------------------
 
 latest = df.iloc[-1]
 
 col1, col2, col3 = st.columns(3)
 
-col1.metric("VIX (Volatility)", round(latest["vix"], 2))
-col2.metric("Unemployment Rate", round(latest["unemployment"], 2))
-col3.metric(
-    "Predicted Market Direction",
-    "UP 📈" if latest["predicted_direction"] == 1 else "DOWN 📉"
-)
+with col1:
+    st.metric("VIX (Volatility)", f"{latest_vix:.2f}")
 
-# ---------------------------
-# Prediction confidence
-# ---------------------------
+with col2:
+    st.metric("Unemployment Rate", f"{latest_unemployment:.1f}%")
+
+with col3:
+    st.metric("Predicted Market Direction", market_direction)
 
 st.subheader("📈 Model Confidence")
 
@@ -55,9 +49,7 @@ st.write(
     f"{latest['predicted_prob_up']:.2%}"
 )
 
-# ---------------------------
 # Volatility vs returns
-# ---------------------------
 
 st.subheader("📉 Volatility vs SPY Monthly Returns")
 
@@ -68,9 +60,7 @@ ax.set_ylabel("SPY Monthly Return")
 
 st.pyplot(fig)
 
-# ---------------------------
 # Time-series view
-# ---------------------------
 
 st.subheader("📅 Predicted Market Direction Over Time")
 

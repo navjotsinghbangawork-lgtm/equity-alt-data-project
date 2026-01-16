@@ -1,0 +1,9 @@
+pandas
+numpy
+yfinance
+fredapi
+sqlalchemy
+scikit-learn
+matplotlib
+plotly
+streamlit

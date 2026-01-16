@@ -1,16 +1,13 @@
 import streamlit as st
 import pandas as pd
-from sqlalchemy import create_engine
 import matplotlib.pyplot as plt
 
-# ---------------------------
+# -----------------------------
 # Load data
-# ---------------------------
-
+# -----------------------------
 @st.cache_data
 def load_data():
-    engine = create_engine("sqlite:///../data/equity_pipeline.db")
-    df = pd.read_sql("SELECT * FROM model_output", engine)
+    df = pd.read_csv("data/model_output.csv")
     return df
 
 df = load_data()

@@ -40,7 +40,6 @@ with col2:
 with col3:
     st.metric("Predicted Market Direction", "UP 📈" if latest_probability > 0.5 else "DOWN 📉")
 
-
 st.subheader("📈 Model Confidence")
 
 st.progress(float(latest["predicted_prob_up"]))

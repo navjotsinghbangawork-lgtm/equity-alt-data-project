@@ -42,7 +42,7 @@ with col3:
         "Predicted Market Direction",
         "UP 📈" if latest["predicted_prob_up"] > 0.5 else "DOWN 📉"
     )
-    
+
 st.subheader("📈 Model Confidence")
 
 st.progress(float(latest["predicted_prob_up"]))
@@ -56,12 +56,13 @@ st.write(
 
 st.subheader("📉 Volatility vs SPY Monthly Returns")
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(6, 4))  # 👈 controls size
 ax.scatter(df["vix"], df["spy_return"], alpha=0.4)
 ax.set_xlabel("VIX (Market Volatility)")
 ax.set_ylabel("SPY Monthly Return")
 
-st.pyplot(fig)
+st.pyplot(fig, use_container_width=False)
+
 
 # Time-series view
 

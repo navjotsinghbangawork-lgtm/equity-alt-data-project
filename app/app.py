@@ -35,10 +35,11 @@ with col1:
     st.metric("VIX (Volatility)", f"{latest_vix:.2f}")
 
 with col2:
-    st.metric("Unemployment Rate", f"{latest_unemployment:.1f}%")
+    st.metric("Unemployment Rate", f"{latest_unemployment:.1f}")
 
 with col3:
-    st.metric("Predicted Market Direction", market_direction)
+    st.metric("Predicted Market Direction", "UP 📈" if latest_probability > 0.5 else "DOWN 📉")
+
 
 st.subheader("📈 Model Confidence")
 
